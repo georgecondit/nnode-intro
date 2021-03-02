@@ -12,13 +12,13 @@ export class BurgersController extends BaseController{
             .get("", this.getAll)
             .get("/:id", this.getOne)
             .post("", this.create)    
-            .delete("/:id)", this.delete)
+            .delete("/:id", this.delete)
             .put("/:id", this.edit)
     }
     async getAll(req, res, next) {
         try {
-            res.send("The Burger Controller")
             const burgers = burgersService.getAll()
+            res.send(burgers)
         } catch(error) {
             next(error)
         }
@@ -36,7 +36,7 @@ export class BurgersController extends BaseController{
         try {
             let newBurger = req.body
             const burger = burgersService.create(newBurger)
-            res.status(201).send({data: ByteLengthQueuingStrategy, message:"Burger Created!", count: BURGERDB.burgers.length })
+            res.status(201).send({data: burger, message:"Burger Created!", count: BURGERDB.burgers.length })
         } catch (error) {
             
         }
@@ -46,16 +46,17 @@ export class BurgersController extends BaseController{
         try {
             let editedBurger = req.body
             const burger = burgersService.edit(editedBurger, req.params.id)
-            res.send
+            res.send(burger)
         } catch (error) {
             
         }
     }
 
     async delete(req, res, next) {
-        try {const id = req.params.id
-        burgersService.delete(id)
-        res.send("Buger Deleted")
+        try {
+            const id = req.params.id
+            burgersService.delete(id)
+            res.send("Burger Deleted")
         } catch (error) {
             next(error)
         }

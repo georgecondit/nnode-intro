@@ -14,7 +14,7 @@ class BurgersService{
     }
     delete(id) {
         findBurger(id)
-        BURGERDB.cats = BURGERDB.burgers.filter(c => c.id != id)
+        BURGERDB.burgers = BURGERDB.burgers.filter(b => b.id != id)
     }
     edit(editedBurger, id) {
         const foundBurger = findBurger(id)
